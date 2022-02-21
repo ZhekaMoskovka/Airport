@@ -1,10 +1,17 @@
 package Entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity(name = "routes")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Route {
     @Id
     private int id;
@@ -12,28 +19,4 @@ public class Route {
     private String placeFrom;
     @Column(name = "place_to")
     private String placeTo;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getPlaceFrom() {
-        return placeFrom;
-    }
-
-    public void setPlaceFrom(String placeFrom) {
-        this.placeFrom = placeFrom;
-    }
-
-    public String getPlaceTo() {
-        return placeTo;
-    }
-
-    public void setPlaceTo(String placeTo) {
-        this.placeTo = placeTo;
-    }
 }

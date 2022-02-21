@@ -16,7 +16,16 @@
         <property name="hbm2ddl.auto">none</property>
         <property name="show_sql">true</property>
 
-        <mapping class="Entity.Airline, Entity.Employee, Entity.Flight, Entity.Passenger, Entity.Plane, Entity.Route, Entity.Terminal, Entity.Ticket, Entity.WorkType"/>
+        <mapping class="Entity.Airline"/>
+        <mapping class="Entity.Employee"/>
+        <mapping class="Entity.Employee"/>
+        <mapping class="Entity.Flight"/>
+        <mapping class="Entity.Passenger"/>
+        <mapping class="Entity.Plane"/>
+        <mapping class="Entity.Route"/>
+        <mapping class="Entity.Terminal"/>
+        <mapping class="Entity.Ticket"/>
+        <mapping class="Entity.WorkType"/>
 
     </session-factory>
 </hibernate-configuration>

@@ -3,26 +3,14 @@ package DAO.Impl;
 import DAO.TicketDAO;
 import Entity.Ticket;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-
 import java.util.List;
 
 public class TicketDAOImpl implements TicketDAO {
-    private static SessionFactory sessionFactory;
 
-    private static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            return new Configuration()
-                    .configure()
-                    .buildSessionFactory();
-        }
-        return sessionFactory;
-    }
     @Override
     public Ticket add(Ticket ticket) {
-        Session session = getSessionFactory().openSession();
+        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(ticket);
         transaction.commit();
@@ -32,7 +20,7 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Ticket update(Ticket ticket) {
-        Session session = getSessionFactory().openSession();
+        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(ticket);
         transaction.commit();
@@ -42,7 +30,7 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public boolean delete(Ticket ticket) {
-        Session session = getSessionFactory().openSession();
+        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(ticket);
         transaction.commit();
@@ -52,7 +40,7 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Ticket get(int id) {
-        Session session = getSessionFactory().openSession();
+        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Ticket ticket = session.get(Ticket.class, id);
         transaction.commit();
@@ -62,9 +50,9 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public List<Ticket> getAll() {
-        Session session = getSessionFactory().openSession();
+        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
-        List<Ticket> ticketsList = (List<Ticket>) session.createQuery("select * from tickets");
+        List<Ticket> ticketsList = session.createQuery("from tickets").list();
         transaction.commit();
         session.close();
         return ticketsList;
