@@ -8,9 +8,14 @@ import java.util.List;
 
 public class TicketDAOImpl implements TicketDAO {
 
+    Session session;
+
+    public TicketDAOImpl() {
+        this.session = SessionFactory.getSessionFactory().openSession();
+    }
+
     @Override
     public Ticket add(Ticket ticket) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(ticket);
         transaction.commit();
@@ -20,7 +25,6 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Ticket update(Ticket ticket) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(ticket);
         transaction.commit();
@@ -30,7 +34,6 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public boolean delete(Ticket ticket) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(ticket);
         transaction.commit();
@@ -40,7 +43,6 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public Ticket get(int id) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Ticket ticket = session.get(Ticket.class, id);
         transaction.commit();
@@ -50,7 +52,6 @@ public class TicketDAOImpl implements TicketDAO {
 
     @Override
     public List<Ticket> getAll() {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<Ticket> ticketsList = session.createQuery("from tickets").list();
         transaction.commit();

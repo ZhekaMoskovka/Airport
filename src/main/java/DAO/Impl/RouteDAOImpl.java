@@ -8,9 +8,14 @@ import java.util.List;
 
 public class RouteDAOImpl implements RouteDAO {
 
+    Session session;
+
+    public RouteDAOImpl() {
+        this.session = SessionFactory.getSessionFactory().openSession();
+    }
+
     @Override
     public Route add(Route route) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(route);
         transaction.commit();
@@ -20,7 +25,6 @@ public class RouteDAOImpl implements RouteDAO {
 
     @Override
     public Route update(Route route) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(route);
         transaction.commit();
@@ -30,7 +34,6 @@ public class RouteDAOImpl implements RouteDAO {
 
     @Override
     public boolean delete(Route route) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(route);
         transaction.commit();
@@ -40,7 +43,6 @@ public class RouteDAOImpl implements RouteDAO {
 
     @Override
     public Route get(int id) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Route route = session.get(Route.class, id);
         transaction.commit();
@@ -50,7 +52,6 @@ public class RouteDAOImpl implements RouteDAO {
 
     @Override
     public List<Route> getAll() {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<Route> routesList = session.createQuery("from routes").list();
         transaction.commit();

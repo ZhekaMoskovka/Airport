@@ -3,7 +3,6 @@ package Logic;
 import DAO.AirlineDAO;
 import DAO.Impl.AirlineDAOImpl;
 import DAO.Impl.PassengerDAOImpl;
-import DAO.Impl.SessionFactory;
 import DAO.PassengerDAO;
 import Entity.Passenger;
 

@@ -7,10 +7,14 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
+    Session session;
+
+    public EmployeeDAOImpl() {
+        this.session = SessionFactory.getSessionFactory().openSession();
+    }
 
     @Override
     public Employee add(Employee employee) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(employee);
         transaction.commit();
@@ -20,7 +24,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee update(Employee employee) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(employee);
         transaction.commit();
@@ -30,7 +33,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public boolean delete(Employee employee) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(employee);
         transaction.commit();
@@ -40,7 +42,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee get(int id) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Employee employee = session.get(Employee.class, id);
         transaction.commit();
@@ -50,7 +51,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> getAll() {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<Employee> employeesList = session.createQuery("from employees").list();
         transaction.commit();

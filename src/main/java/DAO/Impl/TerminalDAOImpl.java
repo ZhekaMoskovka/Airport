@@ -8,9 +8,14 @@ import java.util.List;
 
 public class TerminalDAOImpl implements TerminalDAO {
 
+    Session session;
+
+    public TerminalDAOImpl() {
+        this.session = SessionFactory.getSessionFactory().openSession();
+    }
+
     @Override
     public Terminal add(Terminal terminal) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(terminal);
         transaction.commit();
@@ -20,7 +25,6 @@ public class TerminalDAOImpl implements TerminalDAO {
 
     @Override
     public Terminal update(Terminal terminal) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(terminal);
         transaction.commit();
@@ -30,7 +34,6 @@ public class TerminalDAOImpl implements TerminalDAO {
 
     @Override
     public boolean delete(Terminal terminal) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(terminal);
         transaction.commit();
@@ -40,7 +43,6 @@ public class TerminalDAOImpl implements TerminalDAO {
 
     @Override
     public Terminal get(int id) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Terminal terminal = session.get(Terminal.class, id);
         transaction.commit();
@@ -50,7 +52,6 @@ public class TerminalDAOImpl implements TerminalDAO {
 
     @Override
     public List<Terminal> getAll() {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<Terminal> terminalsList = session.createQuery("from terminals").list();
         transaction.commit();

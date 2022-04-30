@@ -7,10 +7,14 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class AirlineDAOImpl implements AirlineDAO {
+    Session session;
+
+    public AirlineDAOImpl() {
+        this.session = SessionFactory.getSessionFactory().openSession();
+    }
 
     @Override
     public Airline add(Airline airline) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.save(airline);
         transaction.commit();
@@ -20,7 +24,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     @Override
     public Airline update(Airline airline) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.update(airline);
         transaction.commit();
@@ -30,7 +33,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     @Override
     public boolean delete(Airline airline) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         session.delete(airline);
         transaction.commit();
@@ -40,7 +42,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     @Override
     public Airline get(int id) {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         Airline airline = session.get(Airline.class, id);
         transaction.commit();
@@ -50,7 +51,6 @@ public class AirlineDAOImpl implements AirlineDAO {
 
     @Override
     public List<Airline> getAll() {
-        Session session = SessionFactory.getSessionFactory().openSession();
         Transaction transaction = session.beginTransaction();
         List<Airline> airlinesList = session.createQuery("from airlines").list();
         transaction.commit();
