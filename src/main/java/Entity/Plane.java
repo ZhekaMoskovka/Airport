@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "planes")
 @Data
@@ -13,6 +13,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Plane {
     @Id
+    @GeneratedValue
     private int id;
     private String name;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "airline_id", referencedColumnName = "id")})
+    private List<Airline> airlines;
 }

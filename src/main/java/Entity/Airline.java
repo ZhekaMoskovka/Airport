@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "airlines")
 @Data
@@ -13,8 +13,10 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Airline {
     @Id
+    @GeneratedValue
     private int id;
     private String name;
     private double rating;
-    private String planes;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "airlines")
+    private List<Plane> planes;
 }

@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "passengers")
 @Data
@@ -14,9 +13,21 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Passenger {
     @Id
-    @Column(name = "passport_id")
-    private String passportId;
+    @GeneratedValue
+    private int id;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY, mappedBy = "passenger")
+    private Passport passport;
     private String name;
-    @Column(name = "birthday_date")
-    private String birthdayDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger", fetch = FetchType.LAZY)
+    private List<Ticket> tickets;
+
+    @Override
+    public String toString() {
+        return "Passenger{" +
+                "id=" + id +
+                ", passport=" + passport.getPassportNumber() +
+                ", name='" + name + '\'' +
+                ", tickets=" + tickets +
+                '}';
+    }
 }

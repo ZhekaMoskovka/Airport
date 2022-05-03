@@ -5,9 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "flights")
 @Data
@@ -15,11 +13,30 @@ import javax.persistence.Id;
 @NoArgsConstructor
 public class Flight {
     @Id
+    @GeneratedValue
     private int id;
-    @Column(name = "route_id")
-    private int routeId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "route_id", referencedColumnName = "id")
+    private Route route;
     private String time;
-    @Column(name = "airline_id")
-    private int airlineId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "airline_id", referencedColumnName = "id")
+    private Airline airline;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "gate", referencedColumnName = "gate")
+    private Terminal terminal;
     private String status;
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "id=" + id +
+                ", place from=" + route.getPlaceFrom() +
+                ", place to=" + route.getPlaceTo()+
+                ", time='" + time + '\'' +
+                ", airline=" + airline.getName() +
+                ", terminal=" + terminal.getName() +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

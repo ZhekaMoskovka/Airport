@@ -5,30 +5,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
-@Entity(name = "tickets")
+@Entity(name = "passports")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Ticket {
+@AllArgsConstructor
+public class Passport {
     @Id
     @GeneratedValue
     private int id;
-    private String place;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "flight_id", referencedColumnName = "id")
-    private Flight flight;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
     private Passenger passenger;
+    private String passportNumber;
+    private LocalDate birthday;
 
     @Override
     public String toString() {
-        return "Ticket{" +
+        return "Passport{" +
                 "id=" + id +
-                ", place='" + place + '\'' +
-                ", flight=" + flight +
                 ", passenger=" + passenger.getName() +
+                ", passportNumber='" + passportNumber + '\'' +
+                ", birthday=" + birthday +
                 '}';
     }
 }

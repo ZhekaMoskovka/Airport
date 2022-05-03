@@ -26,6 +26,7 @@
         <mapping class="Entity.Terminal"/>
         <mapping class="Entity.Ticket"/>
         <mapping class="Entity.WorkType"/>
+        <mapping class="Entity.Passport"/>
 
     </session-factory>
 </hibernate-configuration>
