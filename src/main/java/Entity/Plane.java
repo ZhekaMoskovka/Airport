@@ -17,6 +17,9 @@ public class Plane {
     private int id;
     private String name;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "airline_id", referencedColumnName = "id")})
+    @JoinTable(joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "airline_id", referencedColumnName = "id")})
+    //one airline have many planes and one plane consist in many airlines
     private List<Airline> airlines;
+    //default toString
 }

@@ -13,6 +13,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Employee add(Employee employee) {
         Transaction transaction = session.beginTransaction();

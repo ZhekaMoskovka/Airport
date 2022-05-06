@@ -14,6 +14,8 @@ public class PlaneDAOImpl implements PlaneDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Plane add(Plane plane) {
         Transaction transaction = session.beginTransaction();

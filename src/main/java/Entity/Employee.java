@@ -19,12 +19,16 @@ public class Employee {
     private double salary;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "work_type_id", referencedColumnName = "id")
+    //one employee have only one workType and one work type have many employee
     private WorkType workType;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "gate", referencedColumnName = "gate")})
+    @JoinTable(joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "gate", referencedColumnName = "gate")})
+    //one terminal have many employee and one employee can work on many terminals
     private List<Terminal> terminals;
 
     @Override
+    //custom toString without recursion
     public String toString() {
         return "Employee{" +
                 "id=" + id +

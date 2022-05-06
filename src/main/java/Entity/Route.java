@@ -20,5 +20,7 @@ public class Route {
     @Column(name = "place_to")
     private String placeTo;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "route")
+    //one route have many flights but one flight have only one route
     private List<Flight> flight;
+    //default toString
 }

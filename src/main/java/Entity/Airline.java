@@ -18,5 +18,7 @@ public class Airline {
     private String name;
     private double rating;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "airlines")
+    //one airline have many planes and one plane consist in many airlines
     private List<Plane> planes;
+    //default toString
 }

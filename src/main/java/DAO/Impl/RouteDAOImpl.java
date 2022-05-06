@@ -14,6 +14,8 @@ public class RouteDAOImpl implements RouteDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Route add(Route route) {
         Transaction transaction = session.beginTransaction();

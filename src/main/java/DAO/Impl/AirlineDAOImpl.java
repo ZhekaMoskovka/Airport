@@ -13,6 +13,8 @@ public class AirlineDAOImpl implements AirlineDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Airline add(Airline airline) {
         Transaction transaction = session.beginTransaction();

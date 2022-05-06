@@ -17,11 +17,13 @@ public class Passport {
     private int id;
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "passenger_id", referencedColumnName = "id")
+    //one passenger have only one passport
     private Passenger passenger;
     private String passportNumber;
     private LocalDate birthday;
 
     @Override
+    //custom toString without recursion
     public String toString() {
         return "Passport{" +
                 "id=" + id +

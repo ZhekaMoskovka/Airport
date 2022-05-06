@@ -14,6 +14,8 @@ public class TicketDAOImpl implements TicketDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Ticket add(Ticket ticket) {
         Transaction transaction = session.beginTransaction();

@@ -13,6 +13,8 @@ public class FlightDAOImpl implements FlightDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Flight add(Flight flight) {
         Transaction transaction = session.beginTransaction();

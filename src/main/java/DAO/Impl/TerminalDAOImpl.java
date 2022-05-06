@@ -14,6 +14,8 @@ public class TerminalDAOImpl implements TerminalDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Terminal add(Terminal terminal) {
         Transaction transaction = session.beginTransaction();

@@ -17,5 +17,7 @@ public class WorkType {
     private int id;
     private String name;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "workType")
+    //one employee have only one workType and one work type have many employee
     private List<Employee> employee;
+    //default toString
 }

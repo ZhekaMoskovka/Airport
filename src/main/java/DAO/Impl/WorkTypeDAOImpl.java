@@ -14,6 +14,8 @@ public class WorkTypeDAOImpl implements WorkTypeDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public WorkType add(WorkType workType) {
         Transaction transaction = session.beginTransaction();

@@ -13,6 +13,7 @@ public class Main {
     private static PassengerDAO passengerDAO = new PassengerDAOImpl();
 
     public static void main(String[] args) {
+        //lazyInitializationException!!!
         List<Passenger> passengersList = passengerDAO.getAllWithTickets();
         for (int i = 0; i < passengersList.size(); i++) {
             System.out.println(passengersList.get(i));

@@ -16,6 +16,8 @@ public class PassengerDAOImpl implements PassengerDAO {
         this.session = SessionFactory.getSessionFactory().openSession();
     }
 
+
+    //CRUD операции
     @Override
     public Passenger add(Passenger passenger) {
         Transaction transaction = session.beginTransaction();
@@ -60,7 +62,7 @@ public class PassengerDAOImpl implements PassengerDAO {
         session.close();
         return passengersList;
     }
-//!!!
+//!!! lazy exception
     public List<Passenger> getAllWithTickets() {
         Transaction transaction = session.beginTransaction();
         Query query = session.createQuery("select id, name, ticket.id from passengers p "
