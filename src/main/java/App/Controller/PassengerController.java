@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class PassengerController {
     private PassengerRepository passengerRepository;
     @GetMapping("/hello/")
-    public Passenger hello() {
-        Passenger passenger = new Passenger();
+    public String hello() {
+        Passenger passenger;
         passenger = passengerRepository.getById(1);
-        return passenger;
+        System.out.println(passenger);
+        return passenger.toString();
     }
 }
