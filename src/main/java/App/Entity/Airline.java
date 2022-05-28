@@ -1,4 +1,4 @@
-package Entity;
+package App.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,19 +7,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "planes")
+@Entity(name = "airlines")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Plane {
+public class Airline {
     @Id
     @GeneratedValue
     private int id;
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(joinColumns = {@JoinColumn(name = "plane_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "airline_id", referencedColumnName = "id")})
+    private double rating;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "airlines")
     //one airline have many planes and one plane consist in many airlines
-    private List<Airline> airlines;
+    private List<Plane> planes;
     //default toString
 }
