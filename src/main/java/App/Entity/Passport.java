@@ -22,7 +22,7 @@ public class Passport {
     //one passenger have only one passport
     private Passenger passenger;
     private String passportNumber;
-    private LocalDate birthday;
+    private String birthday;
 
     @Override
     //custom toString without recursion

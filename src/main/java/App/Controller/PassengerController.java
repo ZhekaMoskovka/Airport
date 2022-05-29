@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 public class PassengerController {
@@ -28,5 +30,11 @@ public class PassengerController {
     public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
         passengerService.registration(passengerDTO);
         return "Registered";
+    }
+    @GetMapping("/passenger/all")
+    public String getAll() {
+        List<Passenger> passengerList;
+
+        return ;
     }
 }
