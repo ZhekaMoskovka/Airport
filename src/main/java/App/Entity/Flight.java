@@ -2,6 +2,7 @@ package App.Entity;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Flight {
     @Id
     @GeneratedValue
@@ -40,7 +42,7 @@ public class Flight {
         return "Flight{" +
                 "id=" + id +
                 ", place from=" + route.getPlaceFrom() +
-                ", place to=" + route.getPlaceTo()+
+                ", place to=" + route.getPlaceTo() +
                 ", time='" + time + '\'' +
                 ", airline=" + airline.getName() +
                 ", terminal=" + terminal.getName() +
