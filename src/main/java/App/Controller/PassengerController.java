@@ -31,18 +31,11 @@ public class PassengerController {
 
     @PostMapping("/registration/")
     public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
-        passengerService.registration(passengerDTO);
+        Passenger passenger = passengerService.registration(passengerDTO);
         return "Registered";
     }
     @GetMapping("/passenger/all")
     public String getAll() {
-        SessionFactory sessionFactory;
-        Session session = sessionFactory.openSession();
-        List<Passenger> passengerList;
-        Transaction transaction = session.beginTransaction();
-        List<Passenger> passengersList = session.createQuery("from passengers").list();
-        transaction.commit();
-        session.close();
-        return ;
+        return passengerRepository.findAll().toString();
     }
 }
