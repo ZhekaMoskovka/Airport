@@ -5,6 +5,8 @@ import App.Entity.Passenger;
 import App.Repository.PassengerRepository;
 import App.Service.Impl.PassengerServiceImpl;
 import lombok.AllArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +36,8 @@ public class PassengerController {
     }
     @GetMapping("/passenger/all")
     public String getAll() {
+        SessionFactory sessionFactory;
+        Session session = sessionFactory.openSession();
         List<Passenger> passengerList;
         Transaction transaction = session.beginTransaction();
         List<Passenger> passengersList = session.createQuery("from passengers").list();
