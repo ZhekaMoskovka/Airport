@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity(name = "flights")
@@ -24,7 +25,7 @@ public class Flight {
     @JoinColumn(name = "route_id", referencedColumnName = "id")
     //one route have many flights but one flight have only one route
     private Route route;
-    private String time;
+    private Calendar time;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "airline_id", referencedColumnName = "id")
     //one airline have many flights but one flight can be done only by one airline

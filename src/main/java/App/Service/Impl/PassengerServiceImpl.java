@@ -1,5 +1,7 @@
 package App.Service.Impl;
 
+import App.DTO.Mapper.MapStructToPassenger;
+import App.DTO.Mapper.MapStructToPassport;
 import App.DTO.RequestPassengerDTO;
 import App.Entity.Passenger;
 import App.Entity.Passport;
@@ -13,16 +15,17 @@ import org.springframework.stereotype.Service;
 public class PassengerServiceImpl implements PassengerService {
     private Passenger passenger;
     private PassengerRepository passengerRepository;
+    private Passport passport;
+    private MapStructToPassenger mapStructToPassenger;
+    private MapStructToPassport mapStructToPassport;
 
     @Override
-    public Passenger registration(RequestPassengerDTO passengerDTO) {
-        Passport passport = new Passport();
-        passenger.setName(passengerDTO.getName());
-        passport.setPassportNumber(passengerDTO.getPassportNumber());
-        passport.setBirthday(passengerDTO.getBirthday());
+    public boolean registration(RequestPassengerDTO passengerDTO) {
+        passenger = mapStructToPassenger.mapToPassenger(passengerDTO);
+        passport = mapStructToPassport.mapToPassport(passengerDTO);
         passenger.setPassport(passport);
         passport.setPassenger(passenger);
         passengerRepository.save(passenger);
-        return passenger;
+        return true;
     }
 }
