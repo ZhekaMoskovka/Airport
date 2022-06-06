@@ -2,6 +2,8 @@ package App.Controller;
 
 import App.DTO.RequestPassengerDTO;
 import App.DTO.RequestTicketDTO;
+import App.DTO.ResponsePassengerDTO;
+import App.DTO.ResponseTicketDTO;
 import App.Entity.Flight;
 import App.Repository.FlightRepository;
 import App.Repository.PassengerRepository;
@@ -22,38 +24,22 @@ public class MainController {
     private FlightRepository flightRepository;
     @PostMapping("/registration/")
     public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
-        boolean isSuccess;
-        isSuccess = passengerService.registration(passengerDTO);
-        if (isSuccess) {
-            return "Registered";
-        }
-        else {
-            return "Something went wrong";
-        }
+        passengerService.registration(passengerDTO);
+        return "Registered";
     }
     @GetMapping("/passenger/all/")
-    public String getAll() {
-        return passengerRepository.findAll().toString();
+    public List<ResponsePassengerDTO> getAll() {
+        return passengerService.getAll();
     }
     @PostMapping("/buyingTickets/")
-    public String buyTickets (@RequestBody RequestTicketDTO ticketDTO) {
-        boolean isSuccess;
-        isSuccess = ticketService.buyTickets(ticketDTO);
-        if (isSuccess){
-            return "You bought ticket(s)";
-        }
-        else {
-            return "Something went wrong";
-        }
+    public ResponseTicketDTO buyTickets (@RequestBody RequestTicketDTO ticketDTO) {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        return ticketService.buyTickets(ticketDTO);
     }
     @GetMapping("/search/flight/borders/")
     public String flightInBorders (@RequestParam String dateFrom, @RequestParam String dateTo) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         List<Flight> flightsInBorders = flightRepository.flightsInBorders(dateFrom, dateTo);
         return flightsInBorders.toString();
-    }
-    @GetMapping("/flights/")
-    public String getFlights() {
-        return flightRepository.findAll().toString();
     }
 }

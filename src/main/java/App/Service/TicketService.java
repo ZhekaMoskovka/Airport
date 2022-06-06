@@ -1,7 +1,8 @@
 package App.Service;
 
 import App.DTO.RequestTicketDTO;
+import App.DTO.ResponseTicketDTO;
 
 public interface TicketService {
-    boolean buyTickets (RequestTicketDTO ticketDTO);
+    ResponseTicketDTO buyTickets (RequestTicketDTO ticketDTO);
 }

@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestTicketDTO {
-    private String name;
-    private String passportNumber;
+public class ResponseTicketDTO {
     private String place;
     private String placeFrom;
     private String placeTo;

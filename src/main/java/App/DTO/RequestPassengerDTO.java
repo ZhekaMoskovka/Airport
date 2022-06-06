@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class RequestPassengerDTO {
-    public String name;
-    public String passportNumber;
-    public String birthday;
+    private String name;
+    private String passportNumber;
+    private String birthday;
 }

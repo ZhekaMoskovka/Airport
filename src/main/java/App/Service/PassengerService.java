@@ -1,7 +1,11 @@
 package App.Service;
 
 import App.DTO.RequestPassengerDTO;
+import App.DTO.ResponsePassengerDTO;
+
+import java.util.List;
 
 public interface PassengerService {
-    boolean registration(RequestPassengerDTO passengerDTO);
+    void registration(RequestPassengerDTO passengerDTO);
+    List<ResponsePassengerDTO> getAll();
 }
