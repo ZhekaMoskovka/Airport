@@ -6,6 +6,7 @@ import App.DTO.ResponsePassengerDTO;
 import java.util.List;
 
 public interface PassengerService {
-    void registration(RequestPassengerDTO passengerDTO);
+    String registration(RequestPassengerDTO requestPassengerDTO);
     List<ResponsePassengerDTO> getAll();
+    String deletePassenger(RequestPassengerDTO requestPassengerDTO);
 }

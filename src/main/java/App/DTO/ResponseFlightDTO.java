@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestFlightDTO {
+public class ResponseFlightDTO {
+    private String time;
+    private String status;
     private String placeFrom;
     private String placeTo;
-    private String time;
+    private String gate;
+    private String name;
 }

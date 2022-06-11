@@ -6,11 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class RequestFlightDTO {
+public class RequestRouteDTO {
     private String placeFrom;
     private String placeTo;
-    private String time;
 }

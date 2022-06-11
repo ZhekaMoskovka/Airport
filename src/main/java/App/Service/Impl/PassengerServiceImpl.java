@@ -7,6 +7,7 @@ import App.DTO.RequestPassengerDTO;
 import App.DTO.ResponsePassengerDTO;
 import App.Entity.Passenger;
 import App.Entity.Passport;
+import App.Entity.Ticket;
 import App.Repository.PassengerRepository;
 import App.Service.PassengerService;
 import lombok.Setter;
@@ -30,12 +31,13 @@ public class PassengerServiceImpl implements PassengerService {
     private Passport passport = new Passport();
 
     @Override
-    public void registration(RequestPassengerDTO passengerDTO) {
-        passenger = mapStructToPassenger.mapToPassenger(passengerDTO);
-        passport = mapStructToPassport.mapToPassport(passengerDTO);
+    public String registration(RequestPassengerDTO requestPassengerDTO) {
+        passenger = mapStructToPassenger.mapToPassenger(requestPassengerDTO);
+        passport = mapStructToPassport.mapToPassport(requestPassengerDTO);
         passenger.setPassport(passport);
         passport.setPassenger(passenger);
         passengerRepository.save(passenger);
+        return "Registered";
     }
 
     @Override
@@ -48,23 +50,19 @@ public class PassengerServiceImpl implements PassengerService {
         return passengerDTOS;
     }
 
-    @Autowired
-    public void setPassengerRepository(PassengerRepository passengerRepository) {
-        this.passengerRepository = passengerRepository;
-    }
-
-    @Autowired
-    public void setMapStructToPassenger(MapStructToPassenger mapStructToPassenger) {
-        this.mapStructToPassenger = mapStructToPassenger;
-    }
-
-    @Autowired
-    public void setMapStructToPassport(MapStructToPassport mapStructToPassport) {
-        this.mapStructToPassport = mapStructToPassport;
-    }
-
-    @Autowired
-    public void setMapToResponsePassengerDTO(MapToResponsePassengerDTO mapToResponsePassengerDTO) {
-        this.mapToResponsePassengerDTO = mapToResponsePassengerDTO;
+    @Override
+    public String deletePassenger(RequestPassengerDTO requestPassengerDTO) {
+        passenger = passengerRepository.findPassengerByName(requestPassengerDTO.getName());
+        if (passenger.getPassport().getPassportNumber().equals(requestPassengerDTO.getPassportNumber())){
+            for (Ticket ticket: passenger.getTickets()) {
+                ticket.setPassenger(null);
+            }
+            passenger.setTickets(null);
+            passengerRepository.delete(passenger);
+            return "Passenger deleted";
+        }
+        else {
+            return "Wrong passport number";
+        }
     }
 }
