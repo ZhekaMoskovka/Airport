@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class ResponsePassengerDTO {
-    String name;
-    String passportNumber;
-    String birthday;
-    List<ResponseTicketDTO> responseTicketDTO;
+    private String name;
+    private String passportNumber;
+    private String birthday;
+    private List<ResponseTicketDTO> responseTicketDTO;
 }

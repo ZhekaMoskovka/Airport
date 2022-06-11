@@ -6,7 +6,6 @@ import App.DTO.ResponsePassengerDTO;
 import App.DTO.ResponseTicketDTO;
 import App.Entity.Flight;
 import App.Repository.FlightRepository;
-import App.Repository.PassengerRepository;
 import App.Service.Impl.PassengerServiceImpl;
 import App.Service.Impl.TicketServiceImpl;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,6 @@ import java.util.TimeZone;
 @RestController
 @AllArgsConstructor
 public class MainController {
-    private PassengerRepository passengerRepository;
     private PassengerServiceImpl passengerService;
     private TicketServiceImpl ticketService;
     private FlightRepository flightRepository;

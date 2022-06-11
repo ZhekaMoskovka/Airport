@@ -9,16 +9,21 @@ import App.Entity.Route;
 import App.Entity.Ticket;
 import App.Repository.*;
 import App.Service.TicketService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TicketServiceImpl implements TicketService {
+    @Setter(onMethod = @__({@Autowired}))
     private PassengerRepository passengerRepository;
-    private PassportRepository passportRepository;
+    @Setter(onMethod = @__({@Autowired}))
     private TicketRepository ticketRepository;
+    @Setter(onMethod = @__({@Autowired}))
     private RouteRepository routeRepository;
+    @Setter(onMethod = @__({@Autowired}))
     private FlightRepository flightRepository;
+    @Setter(onMethod = @__({@Autowired}))
     private MapStructToResponseTicketDTO mapStructToResponseTicketDTO;
     private Passenger passenger = new Passenger();
     private Ticket ticket = new Ticket();
@@ -28,7 +33,7 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public ResponseTicketDTO buyTickets(RequestTicketDTO ticketDTO) {
         passenger = passengerRepository.findPassengerByName(ticketDTO.getName());
-        if (passenger.getPassport().getPassportNumber().equals(ticketDTO.getPassportNumber())){
+        if (passenger.getPassport().getPassportNumber().equals(ticketDTO.getPassportNumber())) {
             route = routeRepository.findRouteByPlaceFromAndPlaceTo(ticketDTO.getPlaceFrom(), ticketDTO.getPlaceTo());
             flight = flightRepository.findFlightByRouteIdAndTime(route.getId(), ticketDTO.getTime());
             ticket = ticketRepository.findTicketByFlightAndPlace(flight, ticketDTO.getPlace());
@@ -36,44 +41,13 @@ public class TicketServiceImpl implements TicketService {
                 ticket.setPassenger(passenger);
                 ticketRepository.save(ticket);
                 return mapStructToResponseTicketDTO.mapToResponseTicketDTO(ticket, flight, route);
-            }
-            else {
+            } else {
                 return null;
             }
-        }
-        else {
+        } else {
 
             return null;
         }
 
-    }
-    @Autowired
-    public void setPassengerRepository(PassengerRepository passengerRepository) {
-        this.passengerRepository = passengerRepository;
-    }
-
-    @Autowired
-    public void setPassportRepository(PassportRepository passportRepository) {
-        this.passportRepository = passportRepository;
-    }
-
-    @Autowired
-    public void setTicketRepository(TicketRepository ticketRepository) {
-        this.ticketRepository = ticketRepository;
-    }
-
-    @Autowired
-    public void setRouteRepository(RouteRepository routeRepository) {
-        this.routeRepository = routeRepository;
-    }
-
-    @Autowired
-    public void setFlightRepository(FlightRepository flightRepository) {
-        this.flightRepository = flightRepository;
-    }
-
-    @Autowired
-    public void setMapStructToResponseTicketDTO(MapStructToResponseTicketDTO mapStructToResponseTicketDTO) {
-        this.mapStructToResponseTicketDTO = mapStructToResponseTicketDTO;
     }
 }

@@ -9,6 +9,7 @@ import App.Entity.Passenger;
 import App.Entity.Passport;
 import App.Repository.PassengerRepository;
 import App.Service.PassengerService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,16 @@ import java.util.List;
 
 @Service
 public class PassengerServiceImpl implements PassengerService {
-    private Passenger passenger = new Passenger();
+    @Setter(onMethod = @__({@Autowired}))
     private PassengerRepository passengerRepository;
-    private Passport passport = new Passport();
+    @Setter(onMethod = @__({@Autowired}))
     private MapStructToPassenger mapStructToPassenger;
+    @Setter(onMethod = @__({@Autowired}))
     private MapStructToPassport mapStructToPassport;
+    @Setter(onMethod = @__({@Autowired}))
     private MapToResponsePassengerDTO mapToResponsePassengerDTO;
+    private Passenger passenger = new Passenger();
+    private Passport passport = new Passport();
 
     @Override
     public void registration(RequestPassengerDTO passengerDTO) {
