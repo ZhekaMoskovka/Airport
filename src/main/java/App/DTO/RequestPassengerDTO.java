@@ -12,5 +12,6 @@ import lombok.NoArgsConstructor;
 public class RequestPassengerDTO {
     private String name;
     private String passportNumber;
+    private String password;
     private String birthday;
 }

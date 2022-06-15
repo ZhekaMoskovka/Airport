@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "passengers")
 @Data
@@ -20,10 +21,13 @@ public class Passenger {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "passenger")
     //one passenger have only one passport
     private Passport passport;
+    private String password;
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "passenger")
     //one passenger have many tickets but one ticket have only one passenger
     private List<Ticket> tickets;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "passengers")
+    private Set<Role> roles;
 
     @Override
     //custom toString without recursion

@@ -9,5 +9,6 @@ import org.mapstruct.Mapping;
 public interface MapStructToPassenger {
     @Mapping(target = "passport", ignore = true)
     @Mapping(target = "tickets", ignore = true)
+    @Mapping(target = "password", ignore = true)
     Passenger mapToPassenger(RequestPassengerDTO passengerDTO);
 }

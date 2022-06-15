@@ -47,4 +47,9 @@ public class MainController {
     public String deleteRoute(@RequestBody RequestPassengerDTO requestPassengerDTO) {
         return passengerService.deletePassenger(requestPassengerDTO);
     }
+
+    @GetMapping("/hello/")
+    public String hello() {
+        return "Hello";
+    }
 }
