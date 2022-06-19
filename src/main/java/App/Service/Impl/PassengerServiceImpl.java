@@ -13,6 +13,7 @@ import App.Repository.PassengerRepository;
 import App.Repository.RoleRepository;
 import App.Service.PassengerService;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
+@Slf4j
 public class PassengerServiceImpl implements PassengerService {
     @Setter(onMethod = @__({@Autowired}))
     private PassengerRepository passengerRepository;
@@ -38,13 +40,19 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public String registration(RequestPassengerDTO requestPassengerDTO) {
+        log.info("Passenger service registration with requestPassengerDTO = " + requestPassengerDTO);
         role = roleRepository.findRoleByRole("USER");
         passenger = mapStructToPassenger.mapToPassenger(requestPassengerDTO);
+        log.info("Mapping requestPassengerDTO to passenger");
         passport = mapStructToPassport.mapToPassport(requestPassengerDTO);
+        log.info("Mapping requestPassengerDTO to passport");
         passenger.setRoles(new HashSet<>());
         passenger.getRoles().add(role);
+        log.info("Set passenger's role as USER");
         passenger.setPassport(passport);
+        log.info("Set passport to passenger");
         passport.setPassenger(passenger);
+        log.info("Set passenger to passport");
         role.getPassengers().add(passenger);
         passengerRepository.save(passenger);
         return "Registered";
@@ -52,26 +60,35 @@ public class PassengerServiceImpl implements PassengerService {
 
     @Override
     public List<ResponsePassengerDTO> getAll() {
+        log.info("Passenger service get all passengers");
         List<Passenger> passengers = passengerRepository.findAll();
+        log.info("Get all passengers by repository");
         List<ResponsePassengerDTO> passengerDTOS = new ArrayList<>();
         for (Passenger passenger: passengers) {
             passengerDTOS.add(mapToResponsePassengerDTO.mapToResponsePassengerDTO(passenger));
         }
+        log.info("Mapping all passengers to responsePassengersDTOS");
         return passengerDTOS;
     }
 
     @Override
     public String deletePassenger(RequestPassengerDTO requestPassengerDTO) {
+        log.info("Passenger service delete passenger from requestPassengerDTO = " + requestPassengerDTO);
         passenger = passengerRepository.findPassengerByName(requestPassengerDTO.getName());
+        log.info("Search passenger by name = " + requestPassengerDTO.getName());
         if (passenger.getPassport().getPassportNumber().equals(requestPassengerDTO.getPassportNumber())){
+            log.info("Check correct passport number (true)");
             for (Ticket ticket: passenger.getTickets()) {
                 ticket.setPassenger(null);
             }
+            log.info("Set tickets' passenger as null");
             passenger.setTickets(null);
+            log.info("Set passenger's tickets as null");
             passengerRepository.delete(passenger);
             return "Passenger deleted";
         }
         else {
+            log.info("Check correct passport number (false)");
             return "Wrong passport number";
         }
     }
