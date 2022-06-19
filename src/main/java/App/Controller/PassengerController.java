@@ -14,7 +14,7 @@ import java.util.TimeZone;
 public class PassengerController {
     private PassengerServiceImpl passengerService;
 
-    @PostMapping("/registration")
+    @PostMapping("/passenger/registration")
     public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return passengerService.registration(passengerDTO);
@@ -24,7 +24,7 @@ public class PassengerController {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return passengerService.getAll();
     }
-    @DeleteMapping("/delete/passenger")
+    @DeleteMapping("/passenger/delete")
     public String deletePassenger(@RequestBody RequestPassengerDTO requestPassengerDTO) {
         return passengerService.deletePassenger(requestPassengerDTO);
     }

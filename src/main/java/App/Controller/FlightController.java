@@ -13,11 +13,11 @@ import java.util.List;
 public class FlightController {
     private FlightServiceImpl flightService;
 
-    @GetMapping("/search/flight/borders")
+    @GetMapping("/flight/search/borders")
     public List<ResponseFlightDTO> flightInBorders (@RequestParam String dateFrom, @RequestParam String dateTo) {
         return flightService.flightInBorders(dateFrom, dateTo);
     }
-    @DeleteMapping("/delete/flight")
+    @DeleteMapping("/flight/delete")
     public String deleteFlight(@RequestBody RequestFlightDTO requestFlightDTO) {
         return flightService.deleteFlight(requestFlightDTO);
     }

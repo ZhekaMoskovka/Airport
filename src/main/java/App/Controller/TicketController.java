@@ -15,7 +15,7 @@ import java.util.TimeZone;
 public class TicketController {
     private TicketServiceImpl ticketService;
 
-    @PostMapping("/buying-tickets")
+    @PostMapping("/ticket/buying")
     public ResponseTicketDTO buyTickets (@RequestBody RequestTicketDTO ticketDTO) {
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return ticketService.buyTickets(ticketDTO);

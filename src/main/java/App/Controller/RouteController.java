@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RouteController {
     private RouteService routeService;
 
-    @DeleteMapping("/delete/route")
+    @DeleteMapping("/route/delete")
     public String deleteRoute(@RequestBody RequestRouteDTO requestRouteDTO) {
         return routeService.deleteRoute(requestRouteDTO);
     }
