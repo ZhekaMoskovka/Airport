@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -13,5 +15,5 @@ public class RequestPassengerDTO {
     private String name;
     private String passportNumber;
     private String password;
-    private String birthday;
+    private LocalDate birthday;
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -14,6 +15,6 @@ import java.util.List;
 public class ResponsePassengerDTO {
     private String name;
     private String passportNumber;
-    private String birthday;
+    private LocalDate birthday;
     private List<ResponseTicketDTO> responseTicketDTO;
 }

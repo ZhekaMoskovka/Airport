@@ -14,7 +14,6 @@ import App.Repository.RoleRepository;
 import App.Service.PassengerService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -33,8 +32,6 @@ public class PassengerServiceImpl implements PassengerService {
     private MapStructToPassport mapStructToPassport;
     @Setter(onMethod = @__({@Autowired}))
     private MapToResponsePassengerDTO mapToResponsePassengerDTO;
-    @Setter(onMethod = @__({@Autowired}))
-    private PasswordEncoder passwordEncoder;
     private Passenger passenger = new Passenger();
     private Passport passport = new Passport();
     private Role role = new Role();
@@ -44,7 +41,6 @@ public class PassengerServiceImpl implements PassengerService {
         role = roleRepository.findRoleByRole("USER");
         passenger = mapStructToPassenger.mapToPassenger(requestPassengerDTO);
         passport = mapStructToPassport.mapToPassport(requestPassengerDTO);
-        passenger.setPassword(passwordEncoder.encode(requestPassengerDTO.getPassword()));
         passenger.setRoles(new HashSet<>());
         passenger.getRoles().add(role);
         passenger.setPassport(passport);

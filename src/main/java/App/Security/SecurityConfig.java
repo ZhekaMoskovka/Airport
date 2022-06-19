@@ -1,8 +1,7 @@
 package App.Security;
 
 import App.Service.Impl.UserDetailsServiceImpl;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,10 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Setter(onMethod=@__({@Autowired}))
     private UserDetailsServiceImpl userDetailsService;
-    @Setter(onMethod=@__({@Autowired}))
     private PasswordEncoder passwordEncoder;
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -29,14 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/registration/").permitAll()
-                .antMatchers("/search/flight/borders/").permitAll()
-                .antMatchers("/delete/flight/").hasAuthority("ADMIN")
-                .antMatchers("/delete/route/").hasAuthority("ADMIN")
-                .antMatchers("/passenger/all/").hasAuthority("ADMIN")
-                .antMatchers("/buying-tickets/").hasAuthority("USER")
-                .antMatchers("/delete/passenger/").hasAuthority("USER")
-                .antMatchers("/hello/").hasAuthority("USER")
+                .antMatchers("/registration", "/search/flight/borders").permitAll()
+                .antMatchers("/delete/flight", "/delete/route", "/passenger/all").hasAuthority("ADMIN")
+                .antMatchers("/buying-tickets", "/delete/passenger").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()

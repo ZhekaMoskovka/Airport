@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity(name = "passports")
 @Data
@@ -21,7 +22,7 @@ public class Passport {
     //one passenger have only one passport
     private Passenger passenger;
     private String passportNumber;
-    private String birthday;
+    private LocalDate birthday;
 
     @Override
     //custom toString without recursion
