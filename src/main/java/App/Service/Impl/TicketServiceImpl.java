@@ -17,6 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 public class TicketServiceImpl implements TicketService {
@@ -36,18 +39,18 @@ public class TicketServiceImpl implements TicketService {
     private Flight flight = new Flight();
 
     @Override
-    public ResponseTicketDTO buyTickets(RequestTicketDTO ticketDTO) {
-        log.info("Ticket service buy tickets from requestTicketDTO = " + ticketDTO);
-        passenger = passengerRepository.findPassengerByName(ticketDTO.getName());
-        log.info("Search passenger by name = " + ticketDTO.getName());
-        if (passenger.getPassport().getPassportNumber().equals(ticketDTO.getPassportNumber())) {
+    public ResponseTicketDTO buyTickets(RequestTicketDTO requestTicketDTO) {
+        log.info("Ticket service buy tickets from requestTicketDTO = " + requestTicketDTO);
+        passenger = passengerRepository.findPassengerByName(requestTicketDTO.getName());
+        log.info("Search passenger by name = " + requestTicketDTO.getName());
+        if (passenger.getPassport().getPassportNumber().equals(requestTicketDTO.getPassportNumber())) {
             log.info("Check correct passport number (true)");
-            route = routeRepository.findRouteByPlaceFromAndPlaceTo(ticketDTO.getPlaceFrom(), ticketDTO.getPlaceTo());
-            log.info("Search route by placeFrom = " + ticketDTO.getPlaceFrom() + " and placeTo = " + ticketDTO.getPlaceTo());
-            flight = flightRepository.findFlightByRouteIdAndTime(route.getId(), ticketDTO.getTime());
-            log.info("Search flight by route_id = " + route.getId() + " and time = " + ticketDTO.getTime());
-            ticket = ticketRepository.findTicketByFlightAndPlace(flight, ticketDTO.getPlace());
-            log.info("Search ticket by flight = " + flight + " and place = " + ticketDTO.getPlace());
+            route = routeRepository.findRouteByPlaceFromAndPlaceTo(requestTicketDTO.getPlaceFrom(), requestTicketDTO.getPlaceTo());
+            log.info("Search route by placeFrom = " + requestTicketDTO.getPlaceFrom() + " and placeTo = " + requestTicketDTO.getPlaceTo());
+            flight = flightRepository.findFlightByRouteIdAndTime(route.getId(), requestTicketDTO.getTime());
+            log.info("Search flight by route_id = " + route.getId() + " and time = " + requestTicketDTO.getTime());
+            ticket = ticketRepository.findTicketByFlightAndPlace(flight, requestTicketDTO.getPlace());
+            log.info("Search ticket by flight = " + flight + " and place = " + requestTicketDTO.getPlace());
             if (ticket.getPassenger() == null) {
                 log.info("Ticket's passenger is null");
                 ticket.setPassenger(passenger);
@@ -62,6 +65,30 @@ public class TicketServiceImpl implements TicketService {
             log.info("Check correct passport number (false)");
             return null;
         }
-
+    }
+    @Override
+    public List<ResponseTicketDTO> getTickets() {
+        log.info("Ticket service get all tickets");
+        List<Ticket> tickets = ticketRepository.findAll();
+        log.info("Search all tickets by repository");
+        List<ResponseTicketDTO> responseTicketDTOS = new ArrayList<>();
+        for (Ticket ticket : tickets) {
+            responseTicketDTOS.add(mapStructToResponseTicketDTO.mapToResponseTicketDTO(ticket, ticket.getFlight(), ticket.getFlight().getRoute()));
+        }
+        log.info("Mapping tickets to responseTicketDTOS");
+        return responseTicketDTOS;
+    }
+    @Override
+    public String deleteTicket(RequestTicketDTO requestTicketDTO) {
+        route = routeRepository.findRouteByPlaceFromAndPlaceTo(requestTicketDTO.getPlaceFrom(), requestTicketDTO.getPlaceTo());
+        log.info("Search route by placeFrom = " + requestTicketDTO.getPlaceFrom() + " and placeTo = " + requestTicketDTO.getPlaceTo());
+        flight = flightRepository.findFlightByRouteIdAndTime(route.getId(), requestTicketDTO.getTime());
+        log.info("Search flight by route_id = " + route.getId() + " and time = " + requestTicketDTO.getTime());
+        ticket = ticketRepository.findTicketByFlightAndPlace(flight, requestTicketDTO.getPlace());
+        log.info("Search ticket by flight = " + flight + " and place = " + requestTicketDTO.getPlace());
+        ticket.setPassenger(null);
+        ticket.setFlight(null);
+        ticketRepository.delete(ticket);
+        return "Ticket deleted";
     }
 }

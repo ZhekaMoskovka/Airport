@@ -16,19 +16,19 @@ import java.util.TimeZone;
 public class PassengerController {
     private PassengerServiceImpl passengerService;
 
-    @PostMapping("/passenger/registration")
+    @PostMapping("/passenger")
     public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
         log.info("Passenger controller registration");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return passengerService.registration(passengerDTO);
     }
-    @GetMapping("/passenger/all")
+    @GetMapping("/passenger")
     public List<ResponsePassengerDTO> getAll() {
         log.info("Passenger controller get all passengers");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return passengerService.getAll();
     }
-    @DeleteMapping("/passenger/delete")
+    @DeleteMapping("/passenger")
     public String deletePassenger(@RequestBody RequestPassengerDTO requestPassengerDTO) {
         log.info("Passenger controller delete passenger");
         return passengerService.deletePassenger(requestPassengerDTO);

@@ -20,7 +20,7 @@ public class FlightController {
         log.info("Flight controller search flight in borders");
         return flightService.flightInBorders(dateFrom, dateTo);
     }
-    @DeleteMapping("/flight/delete")
+    @DeleteMapping("/flight")
     public String deleteFlight(@RequestBody RequestFlightDTO requestFlightDTO) {
         log.info("Flight controller delete flight");
         return flightService.deleteFlight(requestFlightDTO);

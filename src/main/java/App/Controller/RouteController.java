@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class RouteController {
     private RouteService routeService;
 
-    @DeleteMapping("/route/delete")
+    @DeleteMapping("/route")
     public String deleteRoute(@RequestBody RequestRouteDTO requestRouteDTO) {
         log.info("Route controller delete route");
         return routeService.deleteRoute(requestRouteDTO);

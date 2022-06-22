@@ -3,6 +3,7 @@ package App.Security;
 import App.Service.Impl.UserDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,9 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/passenger/registration", "/flight/search/borders").permitAll()
-                .antMatchers("/flight/delete", "/route/delete", "/passenger/all").hasAuthority("ADMIN")
-                .antMatchers("/ticket/buying", "/passenger/delete").hasAuthority("USER")
+                .antMatchers(HttpMethod.POST, "/passenger").permitAll()
+                .antMatchers("/flight/search/borders").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/flight", "/route", "/ticket").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/passenger", "/ticket").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/ticket").hasAuthority("USER")
+                .antMatchers(HttpMethod.DELETE, "/passenger").hasAuthority("USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
