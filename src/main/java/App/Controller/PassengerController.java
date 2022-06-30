@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -17,7 +18,7 @@ public class PassengerController {
     private PassengerServiceImpl passengerService;
 
     @PostMapping("/passenger")
-    public String registration(@RequestBody RequestPassengerDTO passengerDTO) {
+    public String registration(@RequestBody @Valid RequestPassengerDTO passengerDTO) {
         log.info("Passenger controller registration");
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
         return passengerService.registration(passengerDTO);
@@ -29,7 +30,7 @@ public class PassengerController {
         return passengerService.getAll();
     }
     @DeleteMapping("/passenger")
-    public String deletePassenger(@RequestBody RequestPassengerDTO requestPassengerDTO) {
+    public String deletePassenger(@RequestBody @Valid RequestPassengerDTO requestPassengerDTO) {
         log.info("Passenger controller delete passenger");
         return passengerService.deletePassenger(requestPassengerDTO);
     }
