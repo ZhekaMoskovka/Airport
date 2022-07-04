@@ -1,0 +1,37 @@
+package App.Controller;
+
+import App.DTO.RequestPassengerDTO;
+import App.DTO.ResponsePassengerDTO;
+import App.Service.Impl.PassengerServiceImpl;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.TimeZone;
+
+@RestController
+@AllArgsConstructor
+@Slf4j
+public class PassengerController {
+    private PassengerServiceImpl passengerService;
+
+    @PostMapping("/passenger")
+    public String registration(@RequestBody @Valid RequestPassengerDTO passengerDTO) {
+        log.info("Passenger controller registration");
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        return passengerService.registration(passengerDTO);
+    }
+    @GetMapping("/passenger")
+    public List<ResponsePassengerDTO> getAll() {
+        log.info("Passenger controller get all passengers");
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        return passengerService.getAll();
+    }
+    @DeleteMapping("/passenger")
+    public String deletePassenger(@RequestBody @Valid RequestPassengerDTO requestPassengerDTO) {
+        log.info("Passenger controller delete passenger");
+        return passengerService.deletePassenger(requestPassengerDTO);
+    }
+}
