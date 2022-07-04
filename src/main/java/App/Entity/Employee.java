@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "employees")
 @Data
@@ -39,5 +41,18 @@ public class Employee {
                 ", workType=" + workType.getName() +
                 ", terminals=" + terminals +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return id == employee.id && Double.compare(employee.salary, salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(workType.getId(), employee.workType.getId()) && Objects.equals(terminals, employee.terminals);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, salary, workType, terminals);
     }
 }

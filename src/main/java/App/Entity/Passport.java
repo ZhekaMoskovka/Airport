@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity(name = "passports")
 @Data
@@ -34,5 +35,18 @@ public class Passport {
                 ", passportNumber='" + passportNumber + '\'' +
                 ", birthday=" + birthday +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passport passport = (Passport) o;
+        return id == passport.id && Objects.equals(passenger.getId(), passport.passenger.getId()) && Objects.equals(passportNumber, passport.passportNumber) && Objects.equals(birthday, passport.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, passenger, passportNumber, birthday);
     }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "airlines")
 @Data
@@ -23,4 +24,17 @@ public class Airline {
     //one airline have many planes and one plane consist in many airlines
     private List<Plane> planes;
     //default toString
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Airline airline = (Airline) o;
+        return id == airline.id && Double.compare(airline.rating, rating) == 0 && Objects.equals(name, airline.name) && Objects.equals(planes, airline.planes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, rating, planes);
+    }
 }

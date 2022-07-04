@@ -1,3 +1,5 @@
+drop database airport;
+
 create database airport;
 
 use airport;

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "tickets")
 @Data
@@ -35,5 +36,18 @@ public class Ticket {
                 ", flight=" + flight +
                 ", passenger=" + passenger.getName() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return id == ticket.id && Objects.equals(place, ticket.place) && Objects.equals(flight.getId(), ticket.flight.getId()) && Objects.equals(passenger.getId(), ticket.passenger.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, place, flight, passenger);
     }
 }

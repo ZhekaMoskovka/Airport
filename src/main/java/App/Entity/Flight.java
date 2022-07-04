@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 @Entity(name = "flights")
 @Data
@@ -49,5 +50,18 @@ public class Flight {
                 ", terminal=" + terminal.getName() +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return id == flight.id && Objects.equals(route.getId(), flight.route.getId()) && Objects.equals(time, flight.time) && Objects.equals(airline.getId(), flight.airline.getId()) && Objects.equals(terminal.getGate(), flight.terminal.getGate()) && Objects.equals(tickets, flight.tickets) && Objects.equals(status, flight.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, route, time, airline, terminal, tickets, status);
     }
 }

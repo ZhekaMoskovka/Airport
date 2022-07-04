@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "passengers")
@@ -38,5 +39,18 @@ public class Passenger {
                 ", name='" + name + '\'' +
                 ", tickets=" + tickets +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return id == passenger.id && Objects.equals(passport.getId(), passenger.passport.getId()) && Objects.equals(password, passenger.password) && Objects.equals(name, passenger.name) && Objects.equals(tickets, passenger.tickets) && Objects.equals(roles, passenger.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, passport, password, name, tickets, roles);
     }
 }
