@@ -1,11 +1,11 @@
 use airport;
 
 insert passengers (name, password)
-values ('Ivanov Ivan', 'd648c6a77fb7a109e0f0128c65b33cfd9594f28c0db3eda99e79ceafce14948f1e1472dafc2cf9b5'),
-('Moroz Bogdan', 'd648c6a77fb7a109e0f0128c65b33cfd9594f28c0db3eda99e79ceafce14948f1e1472dafc2cf9b5'),
-('Lepuh Oleksandr', 'd648c6a77fb7a109e0f0128c65b33cfd9594f28c0db3eda99e79ceafce14948f1e1472dafc2cf9b5'),
-('Zhyla Vladislav', 'd648c6a77fb7a109e0f0128c65b33cfd9594f28c0db3eda99e79ceafce14948f1e1472dafc2cf9b5'),
-('Gonchar Sergij', '5922cd0a0d7609ff96b5afaddc49e46783696aea890db4db7f05bd38b864665f69881737778b1918');
+values ('Ivanov Ivan', 'e845f2dfc2b9a1f55c07ad71acfd8a8ef4ecfd9a6bb97144b9d312eb833997b8fa7e733c2adf44e1'),
+('Moroz Bogdan', 'e845f2dfc2b9a1f55c07ad71acfd8a8ef4ecfd9a6bb97144b9d312eb833997b8fa7e733c2adf44e1'),
+('Lepuh Oleksandr', 'e845f2dfc2b9a1f55c07ad71acfd8a8ef4ecfd9a6bb97144b9d312eb833997b8fa7e733c2adf44e1'),
+('Zhyla Vladislav', 'e845f2dfc2b9a1f55c07ad71acfd8a8ef4ecfd9a6bb97144b9d312eb833997b8fa7e733c2adf44e1'),
+('Gonchar Sergij', 'ea1b1563f73e1cda5a2dad8b02276ece4dbeaa5446d6e5b19788ce1f370e3169271bd1658d5ceb56');
 
 insert passports (birthday, passport_number, passenger_id)
 values ('1994-02-12', 'TH-4567891', 1),

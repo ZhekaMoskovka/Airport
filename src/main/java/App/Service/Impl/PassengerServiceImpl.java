@@ -15,6 +15,7 @@ import App.Service.PassengerService;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -84,6 +85,12 @@ public class PassengerServiceImpl implements PassengerService {
             log.info("Set tickets' passenger as null");
             passenger.setTickets(null);
             log.info("Set passenger's tickets as null");
+            for (Role role: passenger.getRoles()) {
+                List<Passenger> passengers = role.getPassengers();
+                passengers.remove(passenger);
+                role.setPassengers(passengers);
+            }
+            passenger.setRoles(null);
             passengerRepository.delete(passenger);
             return "Passenger deleted";
         }
