@@ -13,5 +13,9 @@ Java 11, Hibernate, Spring, Spring Security, MySQL.
 #### /flight - delete flight from database(DELETE)
 #### /flight/search/borders?datefrom=2022-04-11 00:00:00&dateTo=2022-04-20 00:00:00 - search flight between certain dates
 
+### PASSWORDS
+"3487" for passengers with USER role
+"1234" for passengers with ADMIN role (now only passenger with name "Gonchar Sergij"
+
 ### HOW TO INSTALL
 Download repository -> download IntelliJ IDEA -> open this repository by IntelliJ IDEA -> run SpringApp
